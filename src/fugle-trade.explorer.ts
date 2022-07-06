@@ -12,7 +12,7 @@ export class FugleTradeExplorer implements OnApplicationBootstrap, OnApplication
     private readonly discoveryService: DiscoveryService,
     private readonly metadataAccessor: FugleTradeMetadataAccessor,
     private readonly metadataScanner: MetadataScanner,
-  ) { }
+  ) {}
 
   onApplicationBootstrap() {
     this.fugle.login().then(() => {
