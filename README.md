@@ -6,7 +6,7 @@
 
 ## Installation
 
-To begin using it, we first install the required dependency.
+To begin using it, we first install the required dependencies.
 
 ```bash
 $ npm install --save @fugle/trade-nest @fugle/trade
@@ -14,7 +14,7 @@ $ npm install --save @fugle/trade-nest @fugle/trade
 
 ## Getting started
 
-Once the installation is complete, to use the `FugleTrade`, first import `FugleTradeModule` and pass the options with `configPath` to the `register()` method.
+Once the installation is complete, import the `FugleTradeModule` into the root `AppModule` and run the `forRoot()` static method as shown below:
 
 ```typescript
 import { Module } from '@nestjs/common';
@@ -22,7 +22,7 @@ import { FugleTradeModule } from '@fugle/trade-nest';
 
 @Module({
   imports: [
-    FugleTradeModule.register({
+    FugleTradeModule.forRoot({
       configPath: '/path/to/config.ini',
     }),
   ],
@@ -30,20 +30,67 @@ import { FugleTradeModule } from '@fugle/trade-nest';
 export class IntradayModule {}
 ```
 
+The `.forRoot()` call initializes the `FugleTrade` client, then logs in to the remote server and connects to streamer when the `onApplicationBootstrap` lifecycle hook occurs.
+
 Next, inject the `FugleTrade` instance using the `@InjectFugleTrade()` decorator.
 
 ```typescript
 constructor(@InjectFugleTrade() private readonly fugle: FugleTrade) {}
 ```
 
+## Declarative streamer listeners
+
+The `@Streamer.On()` decorator will handle any event emitted from the streamer. Additionally, we provide decorators to let you declare streamer listeners easily.
+
+```typescript
+import { Injectable } from '@nestjs/common';
+import { FugleTrade } from '@fugle/trade';
+import { InjectFugleTrade, Streamer } from '@fugle/trade-nest';
+
+@Injectable()
+export class IntradayService {
+  constructor(@InjectFugleTrade() private readonly fugle: FugleTrade) {}
+
+  @Streamer.OnConnect()
+  async onConnect() {
+    // streamer connected
+  }
+
+  @Streamer.OnDisconnect()
+  async onDisconnect() {
+    // streamer disconnected
+  }
+
+  @Streamer.OnOrder()
+  async onOrder(data) {
+    // receive order confirmation
+  }
+
+  @Streamer.OnTrade()
+  async onTrade(data) {
+    // receive execution report
+  }
+
+  @Streamer.OnMessage()
+  async onMessage(data) {
+    // receive message from streamer
+  }
+
+  @Streamer.OnError()
+  async onError(data) {
+    // handle error
+  }
+}
+```
+
 ## Async configuration
 
-When you need to pass module options asynchronously instead of statically, use the `registerAsync()` method. As with most dynamic modules, Nest provides several techniques to deal with async configuration.
+When you need to pass module options asynchronously instead of statically, use the `forRootAsync()` method. As with most dynamic modules, Nest provides several techniques to deal with async configuration.
 
 One technique is to use a factory function:
 
 ```typescript
-FugleTradeModule.registerAsync({
+FugleTradeModule.forRootAsync({
   useFactory: () => ({
     configPath: '/path/to/config.ini',
   }),
@@ -53,7 +100,7 @@ FugleTradeModule.registerAsync({
 Like other factory providers, our factory function can be [async](https://docs.nestjs.com/fundamentals/custom-providers#factory-providers-usefactory) and can inject dependencies through `inject`.
 
 ```typescript
-FugleTradeModule.registerAsync({
+FugleTradeModule.forRootAsync({
   imports: [ConfigModule],
   useFactory: async (configService: ConfigService) => ({
     apiToken: configService.get('FUGLE_REALTIME_API_TOKEN'),
@@ -65,7 +112,7 @@ FugleTradeModule.registerAsync({
 Alternatively, you can configure the `FugleTradeModule` using a class instead of a factory, as shown below.
 
 ```typescript
-FugleTradeModule.registerAsync({
+FugleTradeModule.forRootAsync({
   useClass: FugleTradeConfigService,
 });
 ```
@@ -86,7 +133,7 @@ class FugleTradeConfigService implements FugleTradeModuleOptionsFactory {
 If you want to reuse an existing options provider instead of creating a private copy inside the `FugleTradeModule`, use the `useExisting` syntax.
 
 ```typescript
-FugleTradeModule.registerAsync({
+FugleTradeModule.forRootAsync({
   imports: [ConfigModule],
   useExisting: FugleTradeConfigService,
 });
