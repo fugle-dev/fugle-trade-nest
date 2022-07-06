@@ -1,11 +1,18 @@
-import { Module, DynamicModule, Provider } from '@nestjs/common';
+import { Module, DynamicModule, Provider, Global } from '@nestjs/common';
+import { DiscoveryModule } from '@nestjs/core';
 import { FugleTrade } from '@fugle/trade';
+import { FugleTradeExplorer } from './fugle-trade.explorer';
+import { FugleTradeMetadataAccessor } from './fugle-trade-metadata.accessor';
 import { FugleTradeModuleOptions, FugleTradeModuleAsyncOptions, FugleTradeModuleOptionsFactory } from './interfaces';
 import { FUGLE_TRADE_INSTANCE, FUGLE_TRADE_OPTIONS } from './fugle-trade.constants';
 
-@Module({})
+@Global()
+@Module({
+  imports: [DiscoveryModule],
+  providers: [FugleTradeExplorer, FugleTradeMetadataAccessor],
+})
 export class FugleTradeModule {
-  static register(options: FugleTradeModuleOptions): DynamicModule {
+  static forRoot(options: FugleTradeModuleOptions): DynamicModule {
     return {
       module: FugleTradeModule,
       providers: [
@@ -18,7 +25,7 @@ export class FugleTradeModule {
     };
   }
 
-  static registerAsync(options: FugleTradeModuleAsyncOptions): DynamicModule {
+  static forRootAsync(options: FugleTradeModuleAsyncOptions): DynamicModule {
     return {
       module: FugleTradeModule,
       imports: options.imports,
