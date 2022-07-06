@@ -48,7 +48,7 @@ import { FugleTrade } from '@fugle/trade';
 import { InjectFugleTrade, Streamer } from '@fugle/trade-nest';
 
 @Injectable()
-export class IntradayService {
+export class FugleTradeService {
   constructor(@InjectFugleTrade() private readonly fugle: FugleTrade) {}
 
   @Streamer.OnConnect()
@@ -77,7 +77,7 @@ export class IntradayService {
   }
 
   @Streamer.OnError()
-  async onError(data) {
+  async onError(err) {
     // handle error
   }
 }
@@ -103,7 +103,7 @@ Like other factory providers, our factory function can be [async](https://docs.n
 FugleTradeModule.forRootAsync({
   imports: [ConfigModule],
   useFactory: async (configService: ConfigService) => ({
-    apiToken: configService.get('FUGLE_REALTIME_API_TOKEN'),
+    configPath: configService.get('FUGLE_TRADE_CONFIG_PATH'),
   }),
   inject: [ConfigService],
 });
