@@ -90,10 +90,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fugle-dev/nest-fugle-trade.git"
+    "url": "git+https://github.com/fugle-dev/fugle-trade-nest.git"
   },
   "bugs": {
-    "url": "https://github.com/fugle-dev/nest-fugle-trade/issues"
+    "url": "https://github.com/fugle-dev/fugle-trade-nest/issues"
   },
-  "homepage": "https://github.com/fugle-dev/nest-fugle-trade#readme"
+  "homepage": "https://github.com/fugle-dev/fugle-trade-nest#readme"
 }

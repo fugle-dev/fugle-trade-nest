@@ -1,0 +1,2 @@
+export const FUGLE_TRADE_INSTANCE = Symbol('FUGLE_TRADE_INSTANCE');
+export const FUGLE_TRADE_OPTIONS = Symbol('FUGLE_TRADE_OPTIONS');
