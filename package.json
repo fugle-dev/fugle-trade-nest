@@ -1,6 +1,6 @@
 {
   "name": "@fugle/trade-nest",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "description": "A Nest module wrapper for @fugle/trade",
   "keywords": [
     "nest",
