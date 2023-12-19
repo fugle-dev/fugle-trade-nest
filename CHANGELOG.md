@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/fugle-dev/fugle-trade-nest/compare/v1.0.0...v2.0.0) (2023-12-19)
+
+
+### Features
+
+* upgrade @fugle/trade to v2.0 ([10aa8f1](https://github.com/fugle-dev/fugle-trade-nest/commit/10aa8f16fd27e52ebe9e2943cb62da6488529204))
+
 ## [1.0.0](https://github.com/fugle-dev/fugle-trade-nest/compare/v0.1.5...v1.0.0) (2023-08-01)
 
 
