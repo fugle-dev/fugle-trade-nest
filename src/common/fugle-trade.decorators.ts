@@ -1,5 +1,9 @@
-import { SetMetadata } from '@nestjs/common'
-import { STREAMER_LISTENER_METADATA } from '../fugle-trade.constants'
+import { Inject, SetMetadata } from '@nestjs/common';
+import { FUGLE_TRADE_INSTANCE, STREAMER_LISTENER_METADATA } from '../fugle-trade.constants';
+
+export const InjectFugleTrade = (): ParameterDecorator => {
+  return Inject(FUGLE_TRADE_INSTANCE);
+};
 
 export class Streamer {
   static On(event: string) {
