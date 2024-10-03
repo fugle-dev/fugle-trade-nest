@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/fugle-dev/fugle-trade-nest/compare/v2.0.0...v2.1.0) (2024-10-03)
+
+
+### Features
+
+* export fugle trade token ([80f44f8](https://github.com/fugle-dev/fugle-trade-nest/commit/80f44f8e02c550b594b08a00104a83b5ae7cfbf3))
+
 ## [2.0.0](https://github.com/fugle-dev/fugle-trade-nest/compare/v1.0.0...v2.0.0) (2023-12-19)
 
 
